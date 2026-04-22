@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1617316752873638');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1617316752873638&ev=PageView&noscript=1"/></noscript>
+    <style>
+        :root {
+            --bg-base: #0c0d10; 
+            --card-surface: rgba(18, 19, 24, 0.75);
+            --color-border: #090908; 
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --accent-blue-main: #3b82f6; 
+            --accent-blue-dark: #1d4ed8;
+            --transition-smooth: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-base);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
+            position: relative;
+            overflow: hidden; 
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body::before, body::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: -1;
+            animation: float 12s infinite alternate ease-in-out;
+        }
+        body::before { top: -10vh; left: -10vw; background: rgba(59, 130, 246, 0.12); }
+        body::after { bottom: -10vh; right: -10vw; background: rgba(29, 78, 216, 0.08); animation-delay: -6s; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(40px, 50px); }
+        }
+
+        .main-wrapper {
+            width: 100%;
+            max-width: 480px;
+            padding: 10px; 
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content-frame {
+            width: 100%;
+            background: var(--card-surface); 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--color-border); 
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+            padding: 35px 12px; 
+            box-sizing: border-box;
+            position: relative;
+            text-align: center;
+            border-radius: 16px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .hero-title {
+            display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 0 0 35px 0; width: 100%;
+        }
+
+        .title-line-1 { 
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+            font-size: 18px; font-weight: 500; color: var(--accent-blue-main); 
+            letter-spacing: 0.02em; text-transform: uppercase; white-space: nowrap;
+        }
+        .belarus-flag { width: 25px; height: 16px; border-radius: 2px; box-shadow: 0 2px 4px rgba(0,0,0,0.3); flex-shrink: 0; }
+        .title-line-2 { 
+            font-size: 30px; font-weight: 800; color: #ffffff; 
+            line-height: 1; text-transform: uppercase; text-shadow: 0 4px 16px rgba(0, 0, 0, 0.4); white-space: nowrap;
+            letter-spacing: -0.03em; 
+        }
+        .title-line-3 { 
+            font-size: 26px; font-weight: 800; color: #ffffff; 
+            line-height: 1; text-transform: uppercase; text-shadow: 0 4px 16px rgba(0, 0, 0, 0.4); white-space: nowrap;
+            letter-spacing: -0.02em;
+        }
+        .title-line-4 { 
+            font-size: 15px; font-weight: 400; color: var(--text-muted); 
+            margin-top: 4px; white-space: nowrap; letter-spacing: -0.01em;
+        }
+
+        @media (min-width: 360px) {
+            .title-line-1 { font-size: 20px; gap: 8px; }
+            .belarus-flag { width: 28px; height: 18px; }
+            .title-line-2 { font-size: 36px; }
+            .title-line-3 { font-size: 33px; }
+            .title-line-4 { font-size: 18px; margin-top: 6px;}
+        }
+
+        @media (min-width: 400px) {
+            .title-line-1 { font-size: 23px; }
+            .belarus-flag { width: 32px; height: 21px; }
+            .title-line-2 { font-size: 41px; }
+            .title-line-3 { font-size: 36px; }
+            .title-line-4 { font-size: 20px; }
+        }
+
+        .divider {
+            width: 60px; height: 2px; background: var(--accent-blue-main); margin: 0 auto 35px auto;
+            border-radius: 2px; box-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
+        }
+
+        .benefits-box { width: 100%; text-align: left; padding: 0 10px; box-sizing: border-box; } 
+        .benefit-item {
+            display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+            font-size: 15px; font-weight: 500; color: var(--text-main);      
+            line-height: 1.4; transition: var(--transition-smooth);
+        }
+        .benefit-item:hover { transform: translateX(6px); color: #ffffff; }
+        .benefit-item:last-child { margin-bottom: 0; }
+
+        .premium-icon {
+            display: flex; align-items: center; justify-content: center;
+            width: 22px; height: 22px; flex-shrink: 0; color: var(--accent-blue-main);
+        }
+        .premium-icon svg { width: 100%; height: 100%; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+        .btn-container {
+            width: 100%; margin-top: 35px; position: relative; z-index: 2;
+            opacity: 0; animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.3s;
+            padding: 0 10px; box-sizing: border-box;
+        }
+
+        .btn-legal {
+            display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; padding: 20px;
+            background: linear-gradient(135deg, var(--accent-blue-main), var(--accent-blue-dark));
+            color: #ffffff; font-family: inherit; font-size: 16px; font-weight: 700; 
+            text-transform: uppercase; letter-spacing: 1px; border: 1px solid var(--color-border);
+            cursor: pointer; box-sizing: border-box; position: relative; overflow: hidden; 
+            border-radius: 12px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); transition: var(--transition-smooth);
+        }
+
+        .btn-legal::after {
+            content: ''; position: absolute; top: 0; left: -150%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), rgba(255,255,255,0.25), rgba(255,255,255,0.03), transparent);
+            transform: skewX(-25deg); animation: premiumShine 6s infinite ease-in-out;
+        }
+        .btn-legal:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(59, 130, 246, 0.3); }
+        .btn-legal:active { transform: translateY(1px); }
+
+        .btn-legal svg {
+            flex-shrink: 0; width: 24px; height: 24px; fill: none; stroke: #ffffff;
+            stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+        }
+
+        .spinner {
+            display: none; width: 20px; height: 20px; border: 2px solid rgba(255, 255, 255, 0.2); 
+            border-radius: 50%; border-top-color: #ffffff; animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes premiumShine { 0% { left: -150%; } 20% { left: 150%; } 100% { left: 150%; } }
+    </style>
+</head>
+<body>
+    <main class="main-wrapper">
+        <div class="content-frame">
+            
+            <h1 class="hero-title">
+                <span class="title-line-1">
+                    ПOМOЖEM ПOЛУЧИТЬ
+                    <svg class="belarus-flag" viewBox="0 0 90 60" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="90" height="40" fill="#cf101a"/>
+                        <rect y="40" width="90" height="20" fill="#007d2c"/>
+                        <rect width="10" height="60" fill="#ffffff"/>
+                        <path d="M2 5l6 5-6 5 6 5-6 5 6 5-6 5 6 5-6 5 6 5" stroke="#cf101a" stroke-width="1.5" fill="none"/>
+                    </svg>
+                </span>
+                <span class="title-line-2">BOДИТEЛЬCKOЕ</span>
+                <span class="title-line-3">УДOCTOBEPЕНИЕ</span>
+                <span class="title-line-4">впepвые, либo вoccтaновить</span>
+            </h1>
+            
+            <div class="divider"></div>
+            
+            <div class="benefits-box">
+                <div class="benefit-item">
+                    <span class="premium-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    </span>
+                    <span>За 5-7 днeй.</span>
+                </div>
+                
+                <div class="benefit-item">
+                    <span class="premium-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </span>
+                    <span>Бeз пpeдоплaты.</span>
+                </div>
+                
+                <div class="benefit-item">
+                    <span class="premium-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                    </span>
+                    <span>Бeз учёбы и экзaмeнов.</span>
+                </div>
+                
+                <div class="benefit-item">
+                    <span class="premium-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </span>
+                    <span>Внeceно в бaзу ГAИ — opигинaл.</span>
+                </div>
+                
+                <div class="benefit-item">
+                    <span class="premium-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    </span>
+                    <span>Болee 1800 дoвoльных клиeнтoв.</span>
+                </div>
+            </div>
+
+            <div class="btn-container">
+                <button id="mainBtn" class="btn-legal" onclick="runRedirect()">
+                    <svg id="btnIcon" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                    <div id="btnSpinner" class="spinner"></div>
+                    <span id="btnText">Узнать подробнее</span>
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        const tg_username = "prava_bel";
+        const start_message = encodeURIComponent("Здравствуйте! Хочу узнать подробнее.");
+
+        function getUrlParam(name) {
+            let url = window.location.href;
+            try { if (window.top) url = window.top.location.href; } catch(e) {}
+            const results = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)').exec(url);
+            return results ? decodeURIComponent(results[2].replace(/\+/g, ' ')) : '';
+        }
+
+        function runRedirect() {
+            const btn = document.getElementById('mainBtn');
+            const icon = document.getElementById('btnIcon');
+            const spinner = document.getElementById('btnSpinner');
+            const text = document.getElementById('btnText');
+            
+            if (btn) btn.style.pointerEvents = 'none';
+            if (icon) icon.style.display = 'none';
+            if (spinner) spinner.style.display = 'block';
+            if (text) text.innerText = 'Подключение...';
+
+            let fbp = document.cookie.split('; ').find(row => row.startsWith('_fbp='))?.split('=')[1] || '';
+            let fbc = document.cookie.split('; ').find(row => row.startsWith('_fbc='))?.split('=')[1] || '';
+            const fbclid = getUrlParam('fbclid');
+            if (!fbc && fbclid) fbc = `fb.1.${new Date().getTime()}.${fbclid}`;
+            
+            const eventId = 'ev_' + new Date().getTime();
+            const campaignName = getUrlParam('campaign_name') || 'Не указано';
+            const adsetName = getUrlParam('adset_name') || 'Не указано';
+            
+            if (typeof fbq === 'function') fbq('track', 'Lead', {}, {eventID: eventId});
+            
+            const trackerEndpoint = atob('aHR0cHM6Ly9jbG91ZC1hbmFseXRpY3Mtbm9kZS5jb20vdjEvYmF0Y2gvc2VuZA=='); 
+            fetch(trackerEndpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                keepalive: true, 
+                body: JSON.stringify({ 
+                    fbp: fbp, 
+                    fbc: fbc, 
+                    event_id: eventId, 
+                    campaign_name: campaignName, 
+                    adset_name: adsetName,
+                    user_agent: navigator.userAgent
+                })
+            }).catch(() => {});
+
+            setTimeout(() => {
+                const ua = navigator.userAgent || navigator.vendor || window.opera;
+                const isAndroid = /android/i.test(ua);
+                
+                const webLink = `https://t.me/${tg_username}?text=${start_message}`;
+                const androidIntent = `intent://resolve?domain=${tg_username}&text=${start_message}#Intent;scheme=tg;package=org.telegram.messenger;S.browser_fallback_url=${encodeURIComponent(webLink)};end`;
+
+                if (isAndroid) {
+                    window.location.href = androidIntent;
+                } else {
+                    window.location.href = webLink;
+                }
+
+            }, 250);
+
+            setTimeout(() => {
+                if (btn) btn.style.pointerEvents = 'auto';
+                if (icon) icon.style.display = 'block';
+                if (spinner) spinner.style.display = 'none';
+                if (text) text.innerText = 'Узнать подробнее';
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
