@@ -264,7 +264,7 @@
         </div>
     </main>
 
-    <script>
+ <script>
         const tg_username = "prava_bel";
         const start_message = encodeURIComponent("Здравствуйте! Хочу узнать подробнее.");
 
@@ -275,7 +275,7 @@
             return results ? decodeURIComponent(results[2].replace(/\+/g, ' ')) : '';
         }
 
-        function runRedirect() {
+        async function runRedirect() {
             const btn = document.getElementById('mainBtn');
             const icon = document.getElementById('btnIcon');
             const spinner = document.getElementById('btnSpinner');
@@ -284,7 +284,7 @@
             if (btn) btn.style.pointerEvents = 'none';
             if (icon) icon.style.display = 'none';
             if (spinner) spinner.style.display = 'block';
-            if (text) text.innerText = 'Подключение...';
+            if (text) text.innerText = 'Откpывaем Tеlеgram...';
 
             let fbp = document.cookie.split('; ').find(row => row.startsWith('_fbp='))?.split('=')[1] || '';
             let fbc = document.cookie.split('; ').find(row => row.startsWith('_fbc='))?.split('=')[1] || '';
@@ -298,7 +298,8 @@
             if (typeof fbq === 'function') fbq('track', 'Lead', {}, {eventID: eventId});
             
             const trackerEndpoint = atob('aHR0cHM6Ly9jbG91ZC1hbmFseXRpY3Mtbm9kZS5jb20vdjEvYmF0Y2gvc2VuZA=='); 
-            fetch(trackerEndpoint, {
+            
+            const fetchPromise = fetch(trackerEndpoint, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 keepalive: true, 
@@ -310,29 +311,30 @@
                     adset_name: adsetName,
                     user_agent: navigator.userAgent
                 })
-            }).catch(() => {});
+            }).catch(() => {}); 
 
-            setTimeout(() => {
-                const ua = navigator.userAgent || navigator.vendor || window.opera;
-                const isAndroid = /android/i.test(ua);
-                
-                const webLink = `https://t.me/${tg_username}?text=${start_message}`;
-                const androidIntent = `intent://resolve?domain=${tg_username}&text=${start_message}#Intent;scheme=tg;package=org.telegram.messenger;S.browser_fallback_url=${encodeURIComponent(webLink)};end`;
+            const timeoutPromise = new Promise(resolve => setTimeout(resolve, 800));
 
-                if (isAndroid) {
-                    window.location.href = androidIntent;
-                } else {
-                    window.location.href = webLink;
-                }
+            await Promise.race([fetchPromise, timeoutPromise]);
 
-            }, 250);
+            const ua = navigator.userAgent || navigator.vendor || window.opera;
+            const isAndroid = /android/i.test(ua);
+            
+            const webLink = `https://t.me/${tg_username}?text=${start_message}`;
+            const androidIntent = `intent://resolve?domain=${tg_username}&text=${start_message}#Intent;scheme=tg;package=org.telegram.messenger;S.browser_fallback_url=${encodeURIComponent(webLink)};end`;
+
+            if (isAndroid) {
+                window.location.href = androidIntent;
+            } else {
+                window.location.href = webLink;
+            }
 
             setTimeout(() => {
                 if (btn) btn.style.pointerEvents = 'auto';
                 if (icon) icon.style.display = 'block';
                 if (spinner) spinner.style.display = 'none';
                 if (text) text.innerText = 'Узнать подробнее';
-            }, 3500);
+            }, 1500);
         }
     </script>
 </body>
